@@ -14,6 +14,9 @@ function Logout() {
 
   return (
     <Button onClick={handleClick}>
+      <div>
+        <label className="label"> Logout </label>
+      </div>
       <FaPowerOff/>
     </Button>
   );
@@ -21,7 +24,11 @@ function Logout() {
 
 const Button = styled.div({
   display: "flex",
-  justifyContent: "center",
+  position: "absolute",
+  top: "9%",
+  right: "8%",
+  flexDirection: "row",
+  justifyContent: "flex-end",
   alignItems: "center",
   padding: "0.5rem",
   borderRadius: "0.5rem",
@@ -32,6 +39,10 @@ const Button = styled.div({
     fontSize: "1.3rem",
     color: "#ebe7ff",
   },
+  label: {
+    margin: "7px",
+    color: "white",
+  }
 });
 
 export default Logout;

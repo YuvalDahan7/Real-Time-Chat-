@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import ChatInput from "./ChatInput";
-import Logout from "./Logout";
 import Invite from "./Invite";
 import axios from "axios";
 import { sendMessageRoute, getAllMessagesRoute } from "../utils/APIRouters";
 import { v4 as uuidv4 } from "uuid";
+import Logout from "./Logout";
 
 function ChatContainer({ currentChat, currentUser, socket }) {
   const [messages, setMessages] = useState([]);

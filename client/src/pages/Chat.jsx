@@ -15,9 +15,11 @@ function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
+  
 
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
+      socket.disconnect();
       navigate("/login");
     } else {
       setCurrentUser(JSON.parse(localStorage.getItem("chat-app-user")));

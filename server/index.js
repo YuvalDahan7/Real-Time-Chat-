@@ -39,6 +39,7 @@ const io = socket(server, {
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`)
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
@@ -50,4 +51,8 @@ io.on("connection", (socket) => {
       socket.to(sendUserSocket).emit("msg-receive", data.message);
     }
   });
+
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`)
+  })
 });
