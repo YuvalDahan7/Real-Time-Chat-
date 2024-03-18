@@ -41,8 +41,19 @@ global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`)
   global.chatSocket = socket;
+
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("invite-for-game", (recipientUserId) => {
+    const senderId = onlineUsers.get(recipientUserId);
+    if (senderId) {
+      io.to(senderId).emit("invitationReceived", { senderId: socket.id });
+      console.log("emitting was working!")
+    } else {
+      console.log(`Recipient user not found or offline.`);
+    }
   });
 
   socket.on("send-msg", (data) => {

@@ -16,6 +16,7 @@ function ChatInput({ handleSendMsg }) {
     let message = msg;
     message += emoji.emoji;
     setMsg(message);
+    setShowEmojiPicker(!showEmojiPicker);
   };
 
   const sendChat = (event) => {
@@ -65,7 +66,7 @@ const Container = styled.div({
     color: "white",
     gap: "1rem",
     ".emoji": {
-      position: "relative",
+      position: "absolute",
       svg: {
         fontSize: "1.5rem",
         color: "#ffff00c8",
