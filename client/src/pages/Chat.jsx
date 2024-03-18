@@ -23,14 +23,14 @@ function Chat() {
       setCurrentUser(JSON.parse(localStorage.getItem("chat-app-user")));
       setIsLoaded(true);
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if(currentUser) {
       socket.current = io(host);
       socket.current.emit("add-user", currentUser._id)
     }
-  }, [])
+  }, [currentUser])
 
   useEffect(() => {
     const fetchData = async () => {

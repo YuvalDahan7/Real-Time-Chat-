@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const messageRoute = require("./routes/messages");
 const app = express();
-const socket = require("socket.io");
+const socket = require("socket.io")
 
 require("dotenv").config();
 
@@ -38,10 +38,8 @@ const io = socket(server, {
 });
 
 global.onlineUsers = new Map();
-
 io.on("connection", (socket) => {
   global.chatSocket = socket;
-  console.log("User connect:", socket.id);
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
   });
@@ -51,9 +49,5 @@ io.on("connection", (socket) => {
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit("msg-receive", data.message);
     }
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
   });
 });

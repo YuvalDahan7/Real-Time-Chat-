@@ -3,9 +3,7 @@ import "./game.css";
 import circleIcon from "../../assets/circle.png";
 import crossIcon from "../../assets/cross.png";
 import Leave from './Leave';
-import io from "socket.io-client";
 
-const socket = io("http://localhost:3001"); 
 let data = ["","","","","","","","",""];
 
 const useBoxRefs = (count) => {

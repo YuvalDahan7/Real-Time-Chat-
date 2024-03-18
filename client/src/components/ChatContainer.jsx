@@ -37,7 +37,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
     });
     socket.current.emit("send-msg", {
       to: currentChat._id,
-      form: currentUser._id,
+      from: currentUser._id,
       message: msg,
     });
 
