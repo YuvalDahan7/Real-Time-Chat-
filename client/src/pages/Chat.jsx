@@ -9,30 +9,42 @@ import ChatContainer from "../components/ChatContainer";
 import { io } from "socket.io-client";
 
 function Chat() {
-  const socket = useRef();
+  const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
-  
+  const [recipientUserId, setRecipientUserId] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
-      socket.disconnect();
+      if (socket) {
+        socket.disconnect();
+      }
       navigate("/login");
     } else {
       setCurrentUser(JSON.parse(localStorage.getItem("chat-app-user")));
       setIsLoaded(true);
     }
   }, [navigate]);
-
+  
   useEffect(() => {
-    if(currentUser) {
-      socket.current = io(host);
-      socket.current.emit("add-user", currentUser._id)
+    if (currentUser && !socket) {
+      const newSocket = io(host);
+      setSocket(newSocket);
+  
+      return () => {
+        newSocket.disconnect();
+      };
     }
-  }, [currentUser])
+  }, [currentUser]);
+  
+  useEffect(() => {
+    if (currentUser && socket) {
+      socket.emit("add-user", currentUser._id);
+    }
+  }, [currentUser, socket]);
 
   useEffect(() => {
     const fetchData = async () => {
