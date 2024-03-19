@@ -32,7 +32,7 @@ const server = app.listen(process.env.PORT, () =>
 
 const io = socket(server, {
   cors: {
-    origin: "real-time-chat-opal-eight.vercel.app",
+    origin: "http://localhost:3000",
     credentials: true,
   },
 });
@@ -44,6 +44,7 @@ io.on("connection", (socket) => {
 
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+
   });
 
   socket.on("send-msg", (data) => {
