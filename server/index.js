@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const messageRoute = require("./routes/messages");
 const app = express();
-const socket = require("socket.io")
+const socket = require("socket.io");
 
 require("dotenv").config();
 
@@ -39,21 +39,11 @@ const io = socket(server, {
 
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
-  console.log(`User connected: ${socket.id}`)
+  console.log(`User connected: ${socket.id}`);
   global.chatSocket = socket;
 
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
-  });
-
-  socket.on("invite-for-game", (recipientUserId) => {
-    const senderId = onlineUsers.get(recipientUserId);
-    if (senderId) {
-      io.to(senderId).emit("invitationReceived", { senderId: socket.id });
-      console.log("emitting was working!")
-    } else {
-      console.log(`Recipient user not found or offline.`);
-    }
   });
 
   socket.on("send-msg", (data) => {
@@ -64,6 +54,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log(`User disconnected: ${socket.id}`)
-  })
+    console.log(`User disconnected: ${socket.id}`);
+    onlineUsers.forEach((value, key) => {
+      if (value === socket.id) {
+        onlineUsers.delete(key);
+        io.emit("user-status-update", key, false);
+      }
+    });
+  });
 });

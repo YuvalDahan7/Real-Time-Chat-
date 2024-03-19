@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/Logo.jpg";
+import { IoIosContact } from "react-icons/io";
+
 
 function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  // const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
     const data = localStorage.getItem("chat-app-user");
@@ -39,8 +40,8 @@ function Contacts({ contacts, changeChat }) {
                   onClick={() => changeCurrentChat(index, contact)}
                 >
                   <div className="username">
+                    <IoIosContact className="Image" />
                     <h3>{contact.username}</h3>
-                   
                   </div>
                 </div>
               );
@@ -100,11 +101,17 @@ const Container = styled.div({
       gap: "1rem",
       alignItems: "center",
       transition: "0.5s ease-in-out",
-      position: "relative", // Added for online status positioning
+      position: "relative", 
       ".username": {
         display: "flex",
         alignItems: "center",
+        ".Image": {
+          fontSize: "40px",
+          color: "black",
+          margin: "10px",
+        },
         h3: {
+          fontSize: "20px",
           color: "white",
         },
       },

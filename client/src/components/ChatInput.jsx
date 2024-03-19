@@ -74,7 +74,7 @@ const Container = styled.div({
       },
       ".emoji-picker-react": {
         position: "absolute",
-        top: "600px",
+        top: "350px",
         backgroundColor: "#080420",
         boxShadow: "0 5px 10px #9a86f3",
         borderColor: "#9a86f3",

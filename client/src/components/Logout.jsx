@@ -1,23 +1,22 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { FaPowerOff } from "react-icons/fa";
 import styled from "styled-components";
+import LogoutConfirmation from "./LogoutConfirmation";
 
 function Logout() {
-  
-  const navigate = useNavigate();
+  const [pressed, setPressed] = useState(false);
 
   const handleClick = () => {
-    localStorage.clear();
-    navigate("/login");
-  }
+    setPressed(!pressed);
+  };
 
   return (
     <Button onClick={handleClick}>
       <div>
         <label className="label"> Logout </label>
+        {pressed && <LogoutConfirmation />} 
       </div>
-      <FaPowerOff/>
+      <FaPowerOff />
     </Button>
   );
 }
@@ -42,7 +41,7 @@ const Button = styled.div({
   label: {
     margin: "7px",
     color: "white",
-  }
+  },
 });
 
 export default Logout;

@@ -69,7 +69,7 @@ function ChatContainer({ currentChat, currentUser, socket }) {
           <div className="chat-header">
             <div className="user-details">
               <div className="username">
-                <Invite socket={socket}/>
+                <Invite />
                 <h3 className="chat-user-name">{currentChat.username}</h3>
               </div>
             </div>

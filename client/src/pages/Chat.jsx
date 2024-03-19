@@ -15,7 +15,6 @@ function Chat() {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [recipientUserId, setRecipientUserId] = useState("");
 
   useEffect(() => {
     if (!localStorage.getItem("chat-app-user")) {
@@ -72,7 +71,6 @@ function Chat() {
           contacts={contacts}
           currentUser={currentUser}
           changeChat={handleChatChange}
-          
         />
         {
           isLoaded && currentChat === undefined ?

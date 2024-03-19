@@ -1,17 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { GiTicTacToe } from "react-icons/gi";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 
-function Invite({socket}) {
-
-  const [recipientUserId, setRecipientUserId] = useState(""); 
+function Invite() {
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    socket.emit("invite-for-game", recipientUserId);
     navigate("/game");
   }
 
